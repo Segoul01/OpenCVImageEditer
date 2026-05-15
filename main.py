@@ -36,14 +36,21 @@ def process_grayscale():
     print("Image Grayscaled!")
 
 
+def process_invert():
+    global current_image
+    current_image = 255 - current_image
+    print("Image Inverted!")
+
+
 def main():
     menu = '''Options:
     1\tCreate New Image
     2\tShow Image
     3\tSave Image
     4\tLoad Image
-    5\tProcess - Grayscale Image
-    6\tExit'''
+    5\tProcess - Grayscale
+    6\tProcess - Invert
+    7\tExit'''
 
     while True:
         print(menu)
@@ -55,7 +62,8 @@ def main():
                 case 3: save_file()
                 case 4: load_file()
                 case 5: process_grayscale()
-                case 6: 
+                case 6: process_invert()
+                case 7: 
                     on_exit()
                     break
                 case _: print("Command Not Recgonized...")
