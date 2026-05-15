@@ -14,9 +14,12 @@ def get_new_image():
 
 def show_image():
     global current_image
-    cv2.imshow("Image", current_image)
-    cv2.waitKey(0)
-    on_exit()
+    if (current_image != ''):
+        cv2.imshow("Image", current_image)
+        cv2.waitKey(0)
+        on_exit()
+    else:
+        print('No Image in Memory...')
 
 
 def save_file():
@@ -56,5 +59,6 @@ def main():
 
 def on_exit():
     cv2.destroyAllWindows()
+
 
 main()
