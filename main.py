@@ -14,12 +14,9 @@ def get_new_image():
 
 def show_image():
     global current_image
-    if (current_image != ''):
-        cv2.imshow("Image", current_image)
-        cv2.waitKey(0)
-        on_exit()
-    else:
-        print('No Image in Memory...')
+    cv2.imshow("Image", current_image)
+    cv2.waitKey(0)
+    on_exit()
 
 
 def save_file():
@@ -32,13 +29,21 @@ def load_file():
     current_image = cv2.imread('image_output.jpeg')
 
 
+def process_grayscale():
+    global current_image
+    # current_image *= 1./255
+    current_image = cv2.cvtColor(current_image, cv2.COLOR_BGR2GRAY)
+    print("Image Grayscaled!")
+
+
 def main():
     menu = '''Options:
     1\tCreate New Image
     2\tShow Image
     3\tSave Image
     4\tLoad Image
-    5\tExit'''
+    5\tProcess - Grayscale Image
+    6\tExit'''
 
     while True:
         print(menu)
@@ -49,7 +54,8 @@ def main():
                 case 2: show_image()
                 case 3: save_file()
                 case 4: load_file()
-                case 5: 
+                case 5: process_grayscale()
+                case 6: 
                     on_exit()
                     break
                 case _: print("Command Not Recgonized...")
