@@ -42,6 +42,19 @@ def process_invert():
     print("Image Inverted!")
 
 
+def process_scale(words: list):
+    dimensions = words[1:]
+    try:
+        for i in range(len(dimensions)): dimensions[i] = int(dimensions[i])
+    except Exception as e:
+        print(e)
+    
+    dimensions = tuple(dimensions)
+    global current_image
+    current_image = cv2.resize(current_image, dimensions, interpolation=cv2.INTER_LINEAR)
+    print(f"Resized Image to {dimensions[0]}:{dimensions[1]}")
+
+
 def main():
     menu = '''Options:
     1\tCreate New Image
@@ -50,20 +63,23 @@ def main():
     4\tLoad Image
     5\tProcess - Grayscale
     6\tProcess - Invert
-    7\tExit'''
+    7\tProcess - Scale [x][y]
+    8\tExit'''
 
     while True:
         print(menu)
         try:
-            user_input = int(input("-> "))
-            match user_input:
+            user_input = input("-> ").strip()
+            words = user_input.split()
+            match int(words[0]):
                 case 1: get_new_image()
                 case 2: show_image()
                 case 3: save_file()
                 case 4: load_file()
                 case 5: process_grayscale()
                 case 6: process_invert()
-                case 7: 
+                case 7: process_scale(words)
+                case 8: 
                     on_exit()
                     break
                 case _: print("Command Not Recgonized...")
